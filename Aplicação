@@ -1,0 +1,40 @@
+import re
+
+def extrair_endereco(endereco):
+    # Expressão regular para separar o nome da rua e o número da rua
+    padrao = r'(\D+)(\d+[\w\s]*)?$'
+    resultado = re.match(padrao, endereco)
+    
+    if resultado:
+        rua = resultado.group(1).strip()
+        numero = resultado.group(2).strip() if resultado.group(2) else ''
+        return rua, numero
+    else:
+        return None, None
+
+# Casos de teste simples
+testes_simples = [
+    "Miritiba 339",
+    "Babaçu 500",
+    "Cambuí 804B",
+    "Rio Branco 23",
+    "Quirino dos Santos 23 b"
+]
+
+print("Casos de teste simples:")
+for teste in testes_simples:
+    rua, numero = extrair_endereco(teste)
+    print(f"Entrada: {teste} -> Saída: {rua}, {numero}")
+
+# Casos de teste complexos
+testes_complexos = [
+    "4, Rue de la République",
+    "100 Broadway Av",
+    "Calle Sagasta, 26",
+    "Calle 44 No 1991"
+]
+
+print("\nCasos de teste complexos:")
+for teste in testes_complexos:
+    rua, numero = extrair_endereco(teste)
+    print(f"Entrada: {teste} -> Saída: {rua}, {numero}")
